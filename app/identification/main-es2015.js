@@ -1713,7 +1713,7 @@ __webpack_require__.r(__webpack_exports__);
 const environment = {
     production: false,
     redirectPath: '',
-    redirectUrl: '/landing',
+    redirectUrl: '/portal/external-app/PERMISSION',
     originalHost: 'http://localhost:3000'
 };
 /*

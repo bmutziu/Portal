@@ -37,7 +37,7 @@
     "fuzzysort": "^1.1.4",
     "handsontable": "^7.3.0",
     "jor-angular": "3.2.5",
-    "json-on-relations": "3.2.1",
+    "json-on-relations": "3.2.7",
     "node-uuid": "^1.4.8",
     "path": "^0.12.7",
     "rxjs": "^6.5.4",

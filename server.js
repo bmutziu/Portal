@@ -44,6 +44,7 @@ router.get('/jor/*', (req, res) => { // Open the jor page
 });
 router.get('/portal/*', (req, res) => { // Open the portal page
   res.sendFile(path.join(__dirname, 'app/portal/index.html'));
+  console.log('session id =', req.sessionID)
 });
 router.get('*', (req, res) => { // The default index.html
   res.sendFile(path.join(__dirname, 'app/portal/index.html'));
