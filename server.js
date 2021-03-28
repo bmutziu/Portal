@@ -9,15 +9,35 @@ app.get('/', (req, res) => { // Open the logon page
   res.sendFile(path.join(__dirname, 'app/identification/index.html'));
 });
 
-// Register express-session middle ware with redis
+// Register json-on-relations middleware with mysql
+const entityDB = require('json-on-relations').EntityDB;
+entityDB.setConnPool('mysql', { // Set the connection pool to your mysql DB.
+                                // Currently, we only support mysql.
+                                connectionLimit : 10,
+                                host: '172.17.0.2',  // To be replaced by your DB host
+                                user: 'nodejs',     // To be replaced by your own DB user
+                                password: 'nodejs', // To be replaced by your own DB password
+                                database: 'MDB',
+                                createDatabaseTable: true,
+                                multipleStatements: true,
+                                dateStrings: true,
+                                port: 3306           // replaced by your DB port.
+});
+
+// Register express-session middleware with redis
+const redis = require('redis')
 const session = require('express-session');
 const redisStore = require('connect-redis')(session);
+const redisClient = redis.createClient({
+    host: '172.17.0.3',
+    port: 6379
+});
 app.use(session({
   name: 'sessionID',
   secret:'secretPortal',
   rolling: true,
   saveUninitialized: false,
-  store: new redisStore(),
+  store: new redisStore({ client: redisClient }),
   unset: 'destroy',
   resave: false,
   cookie: {httpOnly: false, maxAge: 15 * 60 * 1000 }
