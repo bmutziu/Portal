@@ -1,8 +1,14 @@
 FROM node:12.21.0 AS build
 RUN curl -sfL https://install.goreleaser.com/github.com/tj/node-prune.sh | bash -s -- -b /usr/local/bin
 WORKDIR /usr/src/app
+ENV PATH=${PATH}:./node_modules/.bin
+ENV NODE_PATH=/usr/src/app/node_modules
+COPY package*.json ./
+RUN npm cache clean --force
+RUN npm i
+RUN ls -lacrt /usr/src/app/node_modules/.bin
 COPY . /usr/src/app
-RUN npm install && npm run build
+RUN npm run build
 RUN npm prune --production
 RUN /usr/local/bin/node-prune
 
