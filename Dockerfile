@@ -5,8 +5,8 @@ ENV PATH=${PATH}:./node_modules/.bin
 ENV NODE_PATH=/usr/src/app/node_modules
 COPY package*.json ./
 RUN npm cache clean --force
-RUN npm i
-RUN ls -lacrt /usr/src/app/node_modules/.bin
+RUN npm ci
+RUN ngcc
 COPY . /usr/src/app
 RUN npm run build
 RUN npm prune --production
