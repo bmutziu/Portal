@@ -1,0 +1,35 @@
+version: '3.9'
+
+# docker-compose -f docker-compose.yaml up -d
+services:
+
+  # MySQL server database (official image)
+  # https://docs.docker.com/samples/library/mysql/
+  mysql-demo-db:
+    image: mysql:5.7
+    container_name: mysql-demo-db-0
+    command: --default-authentication-plugin=mysql_native_password --lower_case_table_names=1
+    ports:
+      - "3309:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: t00r
+      MYSQL_DATABASE: 'MDB'
+      MYSQL_USER: 'nodejs'
+      MYSQL_PASSWORD: 'nodejs'
+    volumes:
+      - "./scripts/MDB.sql:/docker-entrypoint-initdb.d/0.sql"
+
+  redis-demo-db:
+    image: redis:alpine
+    container_name: redis-demo-db-0
+    ports:
+      - "6379:6379"
+
+  portal-demo-app:
+    container_name: portal-demo-app-0
+    build:
+      context: ./
+    working_dir: /usr/src/app
+    command: npm run prod
+    ports:
+      - "3000:3000"

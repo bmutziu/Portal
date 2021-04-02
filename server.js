@@ -14,7 +14,7 @@ const entityDB = require('json-on-relations').EntityDB;
 entityDB.setConnPool('mysql', { // Set the connection pool to your mysql DB.
                                 // Currently, we only support mysql.
                                 connectionLimit : 10,
-                                host: '172.17.0.2',  // To be replaced by your DB host
+                                host: 'mysql-demo-db',  // To be replaced by your DB host
                                 user: 'nodejs',     // To be replaced by your own DB user
                                 password: 'nodejs', // To be replaced by your own DB password
                                 database: 'MDB',
@@ -29,7 +29,7 @@ const redis = require('redis')
 const session = require('express-session');
 const redisStore = require('connect-redis')(session);
 const redisClient = redis.createClient({
-    host: '172.17.0.3',
+    host: 'redis-demo-db',
     port: 6379
 });
 app.use(session({
@@ -77,6 +77,6 @@ identification.Authentication(jor);
 
 require('./server/controller/identity_ctrl');
 require('./server/controller/permission_ctrl');
-// Bootstrap the server ...
+// Bootstrap the server
 app.set('port', process.env.PORT || 3000);
 app.listen(app.get('port'), () => console.log('Example app listening on port 3000!'));
