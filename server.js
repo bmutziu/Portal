@@ -77,6 +77,6 @@ identification.Authentication(jor);
 
 require('./server/controller/identity_ctrl');
 require('./server/controller/permission_ctrl');
-// Bootstrap the server
+// Bootstrap the server ...
 app.set('port', process.env.PORT || 3000);
 app.listen(app.get('port'), () => console.log('Example app listening on port 3000!'));

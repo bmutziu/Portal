@@ -6,7 +6,7 @@ ENV NODE_PATH=/usr/src/app/node_modules
 COPY package*.json ./
 RUN npm cache clean --force
 RUN npm ci
-RUN ngcc
+RUN ngcc --properties es2015 browser module main --first-only --create-ivy-entry-points
 COPY . /usr/src/app
 RUN npm run build
 RUN npm prune --production
