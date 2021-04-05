@@ -18,12 +18,15 @@ services:
       MYSQL_PASSWORD: 'nodejs'
     volumes:
       - "./scripts/MDB.sql:/docker-entrypoint-initdb.d/0.sql"
+      - mysqldata:/var/lib/mysql
 
   redis-demo-db:
     image: redis:alpine
     container_name: redis-demo-db-0
     ports:
       - "6379:6379"
+    volumes:
+      - redisdata:/data
 
   portal-demo-app:
     container_name: portal-demo-app-0
@@ -33,3 +36,7 @@ services:
     command: npm run prod
     ports:
       - "3000:3000"
+
+volumes:
+  mysqldata:
+  redisdata:
