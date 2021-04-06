@@ -29,6 +29,9 @@ services:
       - redisdata:/data
 
   portal-demo-app:
+    depends_on:
+      - mysql-demo-db
+      - redis-demo-db
     container_name: portal-demo-app-0
     build:
       context: ./
