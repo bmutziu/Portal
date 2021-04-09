@@ -1711,10 +1711,10 @@ __webpack_require__.r(__webpack_exports__);
 // `ng build ---prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 const environment = {
-    production: false,
+    production: true,
     redirectPath: '',
     redirectUrl: '/portal/external-app/PERMISSION',
-    originalHost: 'http://localhost:3000'
+    originalHost: 'http://127.0.0.1.xip.io'
 };
 /*
  * In development mode, to ignore zone related error stack frames such as

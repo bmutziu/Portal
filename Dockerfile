@@ -21,6 +21,11 @@ COPY --from=build /usr/src/app/data ./data
 COPY --from=build /usr/src/app/package*.json /usr/src/app/server.js ./
 RUN ls
 RUN sed -i 's%<base href="/">%<base href="/portal/">%g' ./app/portal/index.html
+RUN sed -i -e 's%localhost:3000%127.0.0.1.xip.io%g' -e 's%production: false%production: true%g' ./app/jor/main-es2015.js
+RUN sed -i -e 's%localhost:3000%127.0.0.1.xip.io%g' -e 's%production: false%production: true%g' ./app/jor/main-es2015.js.map
+RUN sed -i -e 's%localhost:3000%127.0.0.1.xip.io%g' -e 's%production: false%production: true%g' ./app/identification/main-es2015.js
+RUN sed -i -e 's%localhost:3000%127.0.0.1.xip.io%g' -e 's%production: false%production: true%g' ./app/identification/main-es2015.js.map
+
 RUN cat ./app/portal/index.html
 EXPOSE 3000
 CMD ["npm", "run", "prod"]
