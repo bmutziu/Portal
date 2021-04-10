@@ -26,6 +26,13 @@ spec:
       labels:                    # The labels that will be applied to all of the pods in this deployment
         app: portal-demo-app
     spec:
+      initContainers:
+      - name: init-mysql
+        image: busybox:1.28
+        command: ['sh', '-c', "until nslookup mysql-demo-db.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for mysql-demo-db; sleep 2; done"]
+      - name: init-redis
+        image: busybox:1.28
+        command: ['sh', '-c', "until nslookup redis-demo-db.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for redis-demo-db; sleep 2; done"]
       containers:
       - name: portal-demo-app-1
         image: bmutziu/portal-demo-app:1.0-alpha
