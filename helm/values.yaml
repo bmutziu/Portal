@@ -1,0 +1,10 @@
+image:
+  repository: bmutziu/portal-demo-app
+  tag: latest
+  pullPolicy: Always
+ingress:
+  enabled: true
+  host: 127.0.0.1.xip.io
+resources:
+  enabled: false
+  data: {}

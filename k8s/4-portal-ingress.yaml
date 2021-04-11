@@ -2,10 +2,11 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: portal-ingress
+  name: portal-demo-app
 spec:
   rules:
-  - http:
+  - host: "127.0.0.1.xip.io"
+    http:
       paths:
       - path: /
         pathType: Prefix
