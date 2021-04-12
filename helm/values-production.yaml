@@ -1,11 +1,12 @@
+replicaCount: 2
 ingress:
-  host: helm-production.portaldemoapp.com
+  host: 127.0.0.1.xip.io
 resources:
   enabled: true
   data:
     limits:
       cpu: 100m
-      memory: 256Mi
+      memory: 1000Mi
     requests:
-      cpu: 80m
-      memory: 128Mi
+      cpu: 73m
+      memory: 768Mi

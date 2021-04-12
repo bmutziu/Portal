@@ -1,4 +1,4 @@
-apiVersion: networking.k8s.io/v1beta
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: {{ .Release.Name }}
@@ -6,9 +6,13 @@ metadata:
     kubernetes.io/ingress.class: "nginx"
 spec:
   rules:
-  - http:
+  - host:  {{ .Values.ingress.host }}
+    http:
       paths:
-      - backend:
-          serviceName: {{ .Release.Name }}
-          servicePort: 3000
-    host: {{ .Values.ingress.host }}
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: {{ .Release.Name }}
+            port:
+              number: 3000
