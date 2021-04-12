@@ -1,0 +1,79 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}
+    spec:
+      initContainers:
+        - name: init-script-fetch
+          image: appropriate/curl
+          args: ["-o", "/tmp/data/0.sql", "https://raw.githubusercontent.com/bmutziu/Portal/v0.1-alpha/scripts/MDB.sql"]
+          volumeMounts:
+            - name: init-script
+              mountPath: /tmp/data
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: t00r
+            - name: MYSQL_DATABASE
+              value: MDB
+            - name: MYSQL_USER
+              value: nodejs
+            - name: MYSQL_PASSWORD
+              value: nodejs
+          args:
+            - --default-authentication-plugin=mysql_native_password
+            - --lower_case_table_names=1
+          ports:
+            - containerPort: 3306
+              name: mysql
+          livenessProbe:
+            exec:
+              # command: ["mysqladmin", "-uroot", "-p$MYSQL_ROOT_PASSWORD", "ping"]
+              command:
+              - bash
+              - "-c"
+              - |
+                mysqladmin -uroot -p$MYSQL_ROOT_PASSWORD ping &> /dev/null
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 5
+          readinessProbe:
+            exec:
+              # Check we can execute queries over TCP (skip-networking is off).
+              # command: ["mysql", "-h", "127.0.0.1", "-uroot", "-p$MYSQL_ROOT_PASSWORD", "-e", "SELECT 1"]
+              command:
+              - bash
+              - "-c"
+              - |
+                mysql -h127.0.0.1 -uroot -p$MYSQL_ROOT_PASSWORD -e'SELECT 1'
+            initialDelaySeconds: 5
+            periodSeconds: 2
+            timeoutSeconds: 1
+          volumeMounts:
+            - name: mysqldata
+              mountPath: /var/lib/mysql
+            - name: init-script
+              mountPath: /docker-entrypoint-initdb.d
+{{- if .Values.resources.enabled }}
+        resources:
+{{ toYaml .Values.resources.data | indent 12 }}
+{{- end }}
+      volumes:
+        - name: init-script
+          persistentVolumeClaim:
+            claimName: init-script
+        - name: mysqldata
+          persistentVolumeClaim:
+            claimName: mysql-pv-claim

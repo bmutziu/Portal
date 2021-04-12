@@ -1,0 +1,11 @@
+ingress:
+  host: 127.0.0.1.xip.io
+resources:
+  enabled: true
+  data:
+    limits:
+      cpu: 100m
+      memory: 1000Mi
+    requests:
+      cpu: 73m
+      memory: 768Mi

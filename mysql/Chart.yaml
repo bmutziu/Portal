@@ -1,0 +1,4 @@
+apiVersion: v1
+description: A MySQL chart for Kubernetes
+name: mysql-demo-db-1
+version: "0.0.1"
