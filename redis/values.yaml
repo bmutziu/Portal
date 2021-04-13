@@ -1,0 +1,10 @@
+replicaCount: 1
+image:
+  repository: redis
+  tag: alpine
+  pullPolicy: Always
+ingress:
+  enabled: false
+resources:
+  enabled: false
+  data: {}

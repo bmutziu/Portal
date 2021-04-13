@@ -1,0 +1,4 @@
+apiVersion: v1
+description: A Redis chart for Kubernetes
+name: redis-demo-db-1
+version: "0.1.0"

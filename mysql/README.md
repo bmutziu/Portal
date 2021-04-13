@@ -1,1 +1,1 @@
-# mysql deployment
+# mysql application

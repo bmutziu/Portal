@@ -1,0 +1,12 @@
+replicaCount: 1
+ingress:
+  enabled: false
+resources:
+  enabled: true
+  data:
+    limits:
+      cpu: 128m
+      memory: 256Mi
+    requests:
+      cpu: 73m
+      memory: 173Mi
