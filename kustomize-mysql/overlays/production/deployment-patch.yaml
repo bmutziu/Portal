@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: portal-demo-app
+  name: devops-toolkit
 spec:
   template:
     spec:
       containers:
-      - name: portal-demo-app-1
+      - name: devops-toolkit
         resources:
           limits:
             cpu: 100m
-            memory: 1000Mi
+            memory: 256Mi
           requests:
-            cpu: 73m
-            memory: 768Mi
+            cpu: 80m
+            memory: 128Mi

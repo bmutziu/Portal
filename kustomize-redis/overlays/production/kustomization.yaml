@@ -8,7 +8,7 @@ patchesJson6902:
   target:
     group: networking.k8s.io
     kind: Ingress
-    name: portal-demo-app
+    name: devops-toolkit
 patchesStrategicMerge:
 - deployment-patch.yaml
-namespace: default
+namespace: kustomize-production
