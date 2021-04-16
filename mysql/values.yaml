@@ -4,6 +4,16 @@ image:
   pullPolicy: Always
 ingress:
   enabled: false
+persistence:
+  accessMode: ReadWriteOnce
+  storageClassNamebis: manual-bis
+  storageClassName: manual
+  enabled: true
+  sizebis: 73Mi
+  size: 7Gi
+  storageClass: standard
+  storagebis: 1Gi
+  storage: 7Gi
 resources:
   enabled: false
   data: {}
